@@ -5,6 +5,7 @@ require('dotenv').config()
 const connectDB = require('./config/db')
 const router = require('./routes')
 const path = require('path');
+const fs = require('fs');
 
 // Initialize Express app
 const app = express()
@@ -24,13 +25,36 @@ app.use("/api", router)
 
 // Serve static files from the frontend build in production
 if (process.env.NODE_ENV === 'production') {
-    // Serve static files
-    app.use(express.static(path.join(__dirname, '../frontend/build')))
+    console.log('Serving static files from frontend build directory');
+    // Serve static files - try multiple possible build paths
+    const buildPaths = [
+        path.join(__dirname, '../frontend/build'),
+        path.join(__dirname, '../frontend/dist'),
+        path.join(__dirname, '../build'),
+        path.join(__dirname, '../dist')
+    ];
+    
+    // Find the first path that exists
+    let validBuildPath = buildPaths.find(p => {
+        try {
+            return fs.existsSync(p);
+        } catch (e) {
+            return false;
+        }
+    });
+    
+    if (!validBuildPath) {
+        console.warn('No build directory found. Using default path.');
+        validBuildPath = path.join(__dirname, '../frontend/build');
+    }
+    
+    console.log(`Using build path: ${validBuildPath}`);
+    app.use(express.static(validBuildPath));
     
     // Handle React routing, return all requests to React app
     app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'))
-    })
+        res.sendFile(path.join(validBuildPath, 'index.html'));
+    });
 }
 
 // Error handling middleware

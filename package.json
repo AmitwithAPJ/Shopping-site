@@ -8,8 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon backend/index.js",
     "build": "npm install && cd frontend && npm install && npm run build",
-    "start": "node backend/index.js",
-    "render-build": "npm run build"
+    "start": "node start-prod.js",
+    "render-build": "npm run build",
+    "verify-build": "node verify-build.js"
   },
   "author": "",
   "license": "ISC",
