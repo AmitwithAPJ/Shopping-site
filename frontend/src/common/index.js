@@ -1,105 +1,112 @@
-const backendDomin = "http://localhost:8080"
+// Determine the backend domain based on the environment
+const isDevelopment = process.env.NODE_ENV === 'development' || 
+                     (!process.env.NODE_ENV && window.location.hostname === 'localhost');
+
+// In production, use relative URLs
+// In development, use localhost with the specified port
+const backendDomain = isDevelopment 
+                     ? "http://localhost:8080" 
+                     : "";
 
 const SummaryApi = {
-    baseURL: `${backendDomin}/api`,
+    baseURL: `${backendDomain}/api`,
     signUP : {
-        url : `${backendDomin}/api/signup`,
+        url : `${backendDomain}/api/signup`,
         method : "post"
     },
     signIn : {
-        url : `${backendDomin}/api/signin`,
+        url : `${backendDomain}/api/signin`,
         method : "post"
     },
     current_user : {
-        url : `${backendDomin}/api/user-details`,
+        url : `${backendDomain}/api/user-details`,
         method : "get"
     },
     logout_user : {
-        url : `${backendDomin}/api/userLogout`,
+        url : `${backendDomain}/api/userLogout`,
         method : 'get'
     },
     allUser : {
-        url : `${backendDomin}/api/all-user`,
+        url : `${backendDomain}/api/all-user`,
         method : 'get'
     },
     updateUser : {
-        url : `${backendDomin}/api/update-user`,
+        url : `${backendDomain}/api/update-user`,
         method : "post"
     },
     uploadProduct : {
-        url : `${backendDomin}/api/upload-product`,
+        url : `${backendDomain}/api/upload-product`,
         method : 'post'
     },
     allProduct : {
-        url : `${backendDomin}/api/get-product`,
+        url : `${backendDomain}/api/get-product`,
         method : 'get'
     },
     updateProduct : {
-        url : `${backendDomin}/api/update-product`,
+        url : `${backendDomain}/api/update-product`,
         method  : 'post'
     },
     categoryProduct : {
-        url : `${backendDomin}/api/get-categoryProduct`,
+        url : `${backendDomain}/api/get-categoryProduct`,
         method : 'get'
     },
     categoryWiseProduct : {
-        url : `${backendDomin}/api/category-product`,
+        url : `${backendDomain}/api/category-product`,
         method : 'post'
     },
     productDetails : {
-        url : `${backendDomin}/api/product-details`,
+        url : `${backendDomain}/api/product-details`,
         method : 'post'
     },
     addToCartProduct : {
-        url : `${backendDomin}/api/addtocart`,
+        url : `${backendDomain}/api/addtocart`,
         method : 'post'
     },
     addToCartProductCount : {
-        url : `${backendDomin}/api/countAddToCartProduct`,
+        url : `${backendDomain}/api/countAddToCartProduct`,
         method : 'get'
     },
     addToCartProductView : {
-        url : `${backendDomin}/api/view-card-product`,
+        url : `${backendDomain}/api/view-card-product`,
         method : 'get'
     },
     updateCartProduct : {
-        url : `${backendDomin}/api/update-cart-product`,
+        url : `${backendDomain}/api/update-cart-product`,
         method : 'post'
     },
     deleteCartProduct : {
-        url : `${backendDomin}/api/delete-cart-product`,
+        url : `${backendDomain}/api/delete-cart-product`,
         method : 'post'
     },
     searchProduct : {
-        url : `${backendDomin}/api/search`,
+        url : `${backendDomain}/api/search`,
         method : 'get'
     },
     filterProduct : {
-        url : `${backendDomin}/api/filter-product`,
+        url : `${backendDomain}/api/filter-product`,
         method : 'post'
     },
     uploadImage: {
-        url: `${backendDomin}/api/cloudinary/upload`,
+        url: `${backendDomain}/api/cloudinary/upload`,
         method: 'post'
     },
     // Banner endpoints
     getBanners: {
-        url: `${backendDomin}/api/banners`,
+        url: `${backendDomain}/api/banners`,
         method: 'get'
     },
     createBanner: {
-        url: `${backendDomin}/api/create-banner`,
+        url: `${backendDomain}/api/create-banner`,
         method: 'post'
     },
     updateBanner: {
-        url: `${backendDomin}/api/update-banner`,
+        url: `${backendDomain}/api/update-banner`,
         method: 'post'
     },
     deleteBanner: {
-        url: `${backendDomin}/api/delete-banner`,
+        url: `${backendDomain}/api/delete-banner`,
         method: 'post'
     }
 }
-
 
 export default SummaryApi
